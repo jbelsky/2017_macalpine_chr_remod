@@ -1,5 +1,9 @@
 # Compiled class file
+**/bin/**
 *.class
+
+# Eclipse Workspace
+**/.settings/**
 
 # Log file
 *.log
@@ -11,7 +15,7 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+# *.jar
 *.war
 *.ear
 *.zip
