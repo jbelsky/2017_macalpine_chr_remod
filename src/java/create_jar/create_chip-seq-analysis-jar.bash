@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Enter the parameters
-java_project_dir="/mnt/git/2017_macalpine_chr_remod/src/java"
+java_project_dir="/data/git/2017_macalpine_chr_remod/src/java"
 package_name="chip_seq_analysis"													# Enter the java package name
 java_src_dir="${java_project_dir}/src/${package_name}"								# Set the Java src directory
 java_class_dir="${java_project_dir}/bin/${package_name}"							# Set the Java bin directory
-jar_file_name="/mnt/git/2017_macalpine_chr_remod/lib/chip-seq-analysis.jar"						# Enter the output jar file name
-manifest_file_name="${java_project_dir}/lib/create_jar/chip-seq-analysis.manifest"	# Enter the manifest file name
+jar_file_name="/data/git/2017_macalpine_chr_remod/lib/chip-seq-analysis.jar"						# Enter the output jar file name
+manifest_file_name="${java_project_dir}/create_jar/chip-seq-analysis.manifest"	# Enter the manifest file name
 
 # Set the external jars
-genomics_functions_jar="/mnt/git/2017_macalpine_chr_remod/lib/genomics-functions.jar"
-sam_jar="/mnt/git/2017_macalpine_chr_remod/lib/sam-1.67.jar"
+genomics_functions_jar="/data/git/2017_macalpine_chr_remod/lib/genomics-functions.jar"
+sam_jar="/data/git/2017_macalpine_chr_remod/lib/sam-1.67.jar"
 
 # Enter the java_file
 java_src_file=($(find $java_src_dir -type f -name "*.java"))
