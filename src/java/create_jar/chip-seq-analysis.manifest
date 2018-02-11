@@ -1,2 +1,2 @@
-Class-Path: /mnt/git/2017_macalpine_chr_remod/lib/sam-1.67.jar /mnt/git/2017_macalpine_chr_remod/lib/genomics-functions.jar
+Class-Path: /data/java-library/sam-1.67.jar /data/java-library/genomics-functions.jar
 Main-Class: chip_seq_analysis/CMDLineMain
