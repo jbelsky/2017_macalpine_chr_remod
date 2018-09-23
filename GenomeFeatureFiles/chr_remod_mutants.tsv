@@ -1,0 +1,35 @@
+ID	Mutant	Mrc1	Genotype	Replicate	BamFile
+DM278	single	wt	WT	1	/data/home/hkm/public_html/bedgraphs070816/DM278.gr
+DM273	single	wt	isw1	1	/data/home/hkm/public_html/bedgraphs070816/DM273.gr
+DM274	single	wt	isw2	1	/data/home/hkm/public_html/bedgraphs070816/DM274.gr
+DM275	single	wt	chd1	1	/data/home/hkm/public_html/bedgraphs070816/DM275.gr
+DM276	single	wt	swr1	1	/data/home/hkm/public_html/bedgraphs070816/DM276.gr
+DM277	single	wt	asf1	1	/data/home/hkm/public_html/bedgraphs070816/DM277.gr
+DM409	double	mrc1	mrc1	1	/data/illumina_pipeline/aligned_experiments/DM409/DM409.bam
+DM410	double	mrc1	mrc1	2	/data/illumina_pipeline/aligned_experiments/DM410/DM410.bam
+DM391	double	mrc1	mrc1 isw1 isw2	1	/data/illumina_pipeline/aligned_experiments/DM391/DM391.bam
+DM392	double	mrc1	mrc1 chd1 isw2	1	/data/illumina_pipeline/aligned_experiments/DM392/DM392.bam
+DM393	double	mrc1	mrc1 asf1 isw1	1	/data/illumina_pipeline/aligned_experiments/DM393/DM393.bam
+DM394	double	mrc1	mrc1 asf1 isw2	1	/data/illumina_pipeline/aligned_experiments/DM394/DM394.bam
+DM396	double	mrc1	mrc1 asf1 chd1	1	/data/illumina_pipeline/aligned_experiments/DM396/DM396.bam
+DM398	double	mrc1	mrc1 chd1 isw1	1	/data/illumina_pipeline/aligned_experiments/DM398/DM398.bam
+DM399	double	mrc1	mrc1 isw2 swr1	1	/data/illumina_pipeline/aligned_experiments/DM399/DM399.bam
+DM400	double	mrc1	mrc1 chd1 swr1	1	/data/illumina_pipeline/aligned_experiments/DM400/DM400.bam
+DM411	double	mrc1	mrc1 chd1 isw1	2	/data/illumina_pipeline/aligned_experiments/DM411/DM411.bam
+DM412	double	mrc1	mrc1 isw2 swr1	2	/data/illumina_pipeline/aligned_experiments/DM412/DM412.bam
+DM413	double	mrc1	mrc1 chd1 swr1	2	/data/illumina_pipeline/aligned_experiments/DM413/DM413.bam
+DM414	double	mrc1	mrc1 isw1 isw2	2	/data/illumina_pipeline/aligned_experiments/DM414/DM414.bam
+DM415	double	mrc1	mrc1 chd1 isw2	2	/data/illumina_pipeline/aligned_experiments/DM415/DM415.bam
+DM416	double	mrc1	mrc1 asf1 isw1	2	/data/illumina_pipeline/aligned_experiments/DM416/DM416.bam
+DM417	double	mrc1	mrc1 asf1 isw2	2	/data/illumina_pipeline/aligned_experiments/DM417/DM417.bam
+DM418	double	mrc1	mrc1 asf1 chd1	2	/data/illumina_pipeline/aligned_experiments/DM418/DM418.bam
+DM419	double	mrc1	mrc1 asf1 swr1	1	/data/illumina_pipeline/aligned_experiments/DM419/DM419.bam
+DM420	double	mrc1	mrc1 asf1 swr1	2	/data/illumina_pipeline/aligned_experiments/DM420/DM420.bam
+DM510	triple	mrc1	mrc1 isw1 isw2 chd1	1	/data/home/hkm/public_html/bedgraphs070816/DM510.gr
+DM511	triple	mrc1	mrc1 isw1 isw2 asf1	1	/data/home/hkm/public_html/bedgraphs070816/DM511.gr
+DM512	triple	mrc1	mrc1 isw1 chd1 asf1	1	/data/home/hkm/public_html/bedgraphs070816/DM512.gr
+DM513	triple	mrc1	mrc1 isw2 swr1 asf1	1	/data/home/hkm/public_html/bedgraphs070816/DM513.gr
+DM514	triple	mrc1	mrc1 isw2 swr1 isw1	1	/data/home/hkm/public_html/bedgraphs070816/DM514.gr
+DM516	triple	mrc1	mrc1 chd1 swr1 isw1	1	/data/home/hkm/public_html/bedgraphs070816/DM516.gr
+DM517	triple	mrc1	mrc1 swr1 asf1 isw1	1	/data/home/hkm/public_html/bedgraphs070816/DM517.gr
+DM518	triple	mrc1	mrc1 isw2 chd1 swr1	1	/data/home/hkm/public_html/bedgraphs070816/DM518.gr
