@@ -8,7 +8,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("design_file", help = "the chromatin remodeler design file")
-parser.add_argument("sim_genome_pos_file", help = "simulated genome positions")
+parser.add_argument("acs_feature_file", help = "the ACS feature file")
 parser.add_argument("--win", help = "+/- bp around feature position")
 parser.add_argument("--out_dir", help = "output_directory")
 args = parser.parse_args()
@@ -19,24 +19,26 @@ dm_id = "DM409"
 
 # Set the window width
 readWin = int(args.win)
-f_out = "/".join([args.out_dir, design_df.loc[dm_id,"Genotype"], dm_id, dm_id + "_sim.txt"])
+f_out = "/".join([args.out_dir, design_df.loc[dm_id,"Genotype"], dm_id, dm_id + "_brdu_coverage_2500bp_win.txt"])
 
 f_bam = design_df.loc[dm_id, "BamFile"]
 
 
 # Read in the chr positions
-pos_df = pd.read_table(args.sim_genome_pos_file, sep = "\t", header = 0, index_col = None)
+pos_df = pd.read_table(args.acs_feature_file, sep = ",", header = 0, index_col = "name")
 pos_df["Counts"] = 0
 
 # Open the bam file
 bam_pys = pysam.AlignmentFile(f_bam, mode = "rb")
 
+# Initialize output list
+output_read_ct = []
 
 for r_idx in pos_df.index:
 
 	# Get the coordinates
-	chrom = str(pos_df.loc[r_idx, "Chromosome"])
-	pos = pos_df.loc[r_idx, "Position"]
+	chrom = str(pos_df.loc[r_idx, "chr"])
+	pos = pos_df.loc[r_idx, "pos"] 
 
 	# Get the start and end coordinates of the acs
 	l_pos = max(pos - readWin, 0)
@@ -56,13 +58,8 @@ for r_idx in pos_df.index:
 		if alignRead_pos >= l_pos and alignRead_pos <= r_pos:
 			read_ct += 1
 
-	# Enter into output list
+	# Enter into the data frame
 	pos_df.loc[r_idx, "Counts"] = read_ct
 
-	if r_idx % 500 == 0:
-		print("Processed %d simulated positions..." % r_idx, end = "\r")
-
 # Write the output
-pos_df.to_csv(f_out, sep = "\t", header = True, index = False)
-
-print("\n\n\tComplete!")
+pos_df.to_csv(f_out, sep = "\t", header = True, index = True, columns = ["chr", "pos", "strand", "Counts"])
