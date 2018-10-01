@@ -15,51 +15,52 @@ args = parser.parse_args()
 
 design_df = pd.read_table(args.design_file, sep = "\t", header = 0, index_col = "ID")
 
-dm_id = "DM409"
-
 # Set the window width
 readWin = int(args.win)
-f_out = "/".join([args.out_dir, design_df.loc[dm_id,"Genotype"], dm_id, dm_id + "_brdu_coverage_2500bp_win.txt"])
 
-f_bam = design_df.loc[dm_id, "BamFile"]
+# Iterate through the double mutants
+for dm_id in design_df[design_df["Mutant"] == "double"].index:
 
+	print(dm_id + "\t" + design_df.loc[dm_id, "Genotype"])
 
-# Read in the chr positions
-pos_df = pd.read_table(args.acs_feature_file, sep = ",", header = 0, index_col = "name")
-pos_df["Counts"] = 0
+	readWin = int(args.win)
+	f_out = "/".join([args.out_dir, design_df.loc[dm_id,"Genotype"].replace(" ", "_"), dm_id, dm_id + "_brdu_coverage_2500bp_win.txt"])
 
-# Open the bam file
-bam_pys = pysam.AlignmentFile(f_bam, mode = "rb")
+	f_bam = design_df.loc[dm_id, "BamFile"]
 
-# Initialize output list
-output_read_ct = []
+	# Read in the chr positions
+	pos_df = pd.read_table(args.acs_feature_file, sep = ",", header = 0, index_col = "name")
+	pos_df["Counts"] = 0
 
-for r_idx in pos_df.index:
+	# Open the bam file
+	bam_pys = pysam.AlignmentFile(f_bam, mode = "rb")
 
-	# Get the coordinates
-	chrom = str(pos_df.loc[r_idx, "chr"])
-	pos = pos_df.loc[r_idx, "pos"] 
+	for r_idx in pos_df.index:
 
-	# Get the start and end coordinates of the acs
-	l_pos = max(pos - readWin, 0)
-	r_pos = min(pos + readWin, bam_pys.get_reference_length(chrom))
+		# Get the coordinates
+		chrom = str(pos_df.loc[r_idx, "chr"])
+		pos = pos_df.loc[r_idx, "pos"] 
 
-	# Initialize the read_count
-	read_ct = 0
+		# Get the start and end coordinates of the acs
+		l_pos = max(pos - readWin, 0)
+		r_pos = min(pos + readWin, bam_pys.get_reference_length(chrom))
 
-	for alignRead in bam_pys.fetch(chrom, max(l_pos - 1000, 0), min(r_pos + 1000, bam_pys.get_reference_length(chrom))):
+		# Initialize the read_count
+		read_ct = 0
 
-		# Shift by 75 bp
-		if alignRead.is_reverse:
-			alignRead_pos = alignRead.pos - 75
-		else:
-			alignRead_pos = alignRead.pos + 75
+		for alignRead in bam_pys.fetch(chrom, max(l_pos - 1000, 0), min(r_pos + 1000, bam_pys.get_reference_length(chrom))):
 
-		if alignRead_pos >= l_pos and alignRead_pos <= r_pos:
-			read_ct += 1
+			# Shift by 75 bp
+			if alignRead.is_reverse:
+				alignRead_pos = alignRead.pos - 75
+			else:
+				alignRead_pos = alignRead.pos + 75
 
-	# Enter into the data frame
-	pos_df.loc[r_idx, "Counts"] = read_ct
+			if alignRead_pos >= l_pos and alignRead_pos <= r_pos:
+				read_ct += 1
 
-# Write the output
-pos_df.to_csv(f_out, sep = "\t", header = True, index = True, columns = ["chr", "pos", "strand", "Counts"])
+		# Enter into the data frame
+		pos_df.loc[r_idx, "Counts"] = read_ct
+
+	# Write the output
+	pos_df.to_csv(f_out, sep = "\t", header = True, index = True, columns = ["chr", "pos", "strand", "Counts"])

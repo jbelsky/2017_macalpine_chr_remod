@@ -2,8 +2,8 @@ library("TyphoonPlot")
 
 d_data = "/data/git/2017_macalpine_chr_remod/data"
 
-chr_remod = c("mrc1", "mrc1_chd1_asf1", "mrc1_chd1_swr1", "mrc1_isw1_asf1",
-              "mrc1_isw1_chd1", "mrc1_isw1_isw2", "mrc1_isw2_asf1", "mrc1_isw2_chd1",
+chr_remod = c("mrc1", "mrc1_asf1_chd1", "mrc1_chd1_swr1", "mrc1_asf1_isw1",
+              "mrc1_chd1_isw1", "mrc1_isw1_isw2", "mrc1_asf1_isw2", "mrc1_chd1_isw2",
               "mrc1_isw2_swr1"
              )
 
@@ -13,21 +13,21 @@ mat_idx = 1
 for (i in chr_remod){
   
   # Get the tsv files
-  f_rpkm = list.files(paste0(d_data, "/", i), pattern = ".tsv", recursive = T)
+  f_rpkm = list.files(paste0(d_data, "/", i), pattern = "_brdu_coverage_2500bp_win.txt", recursive = T)
   a.df = read.table(paste0(d_data, "/", i, "/", f_rpkm[1]), header = T)
   b.df = read.table(paste0(d_data, "/", i, "/", f_rpkm[2]), header = T)
   
   # Average the rpkm into the brdu.m
-  brdu.m[,mat_idx] = (a.df$rpkm + b.df$rpkm) / 2
+  brdu.m[,mat_idx] = (a.df$Norm_Counts + b.df$Norm_Counts) / 2
   mat_idx = mat_idx + 1
   
   # Compare the replicates
-  png(file = paste0("/home/jab112/public_html/2018_09_17/replicate_comparison/", i, ".png"),
+  png(file = paste0("/home/jab112/public_html/2018_09_30/replicate_comparison/", i, ".png"),
       width = 7, height = 7, units = "in", res = 300
   )
   
-  plot(a.df$rpkm, b.df$rpkm, cex = 0.5, pch = 19, 
-       xlim = c(0, 500), ylim = c(0, 500),
+  plot(a.df$Norm_Counts, b.df$Norm_Counts, cex = 0.5, pch = 19, 
+       xlim = c(0, 3000), ylim = c(0, 3000),
        xlab = substring(f_rpkm[1], 1, 5),
        ylab = substring(f_rpkm[2], 1, 5),
        main = i
@@ -43,12 +43,12 @@ for(i in 2:ncol(brdu.m)){
   cur_chr_remod = chr_remod[i]
   
   # Compare to mrc1
-  png(file = paste0("/home/jab112/public_html/2018_09_17/comparison_to_mrc1/mrc1_to_", cur_chr_remod, ".png"),
+  png(file = paste0("/home/jab112/public_html/2018_09_30/comparison_to_mrc1/mrc1_to_", cur_chr_remod, ".png"),
       width = 7, height = 7, units = "in", res = 300
   )
   
   plot(brdu.m[,1], brdu.m[,i], cex = 0.5, pch = 19, 
-       xlim = c(0, 500), ylim = c(0, 500),
+       xlim = c(0, 3000), ylim = c(0, 3000),
        xlab = "mrc1",
        ylab = cur_chr_remod,
        main = paste0("mrc1 vs. ", cur_chr_remod)
